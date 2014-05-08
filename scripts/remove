@@ -1,0 +1,10 @@
+#!/bin/bash
+
+app_name="adminer"
+domain=$(sudo yunohost app setting $app_name domain)
+
+sudo rm -rf /var/www/$app_name
+sudo rm -f /etc/nginx/conf.d/$domain.d/$app_name.conf
+
+sudo service php5-fpm restart
+sudo service nginx reload
