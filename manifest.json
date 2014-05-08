@@ -10,7 +10,7 @@
         "email": "fol@fol.tf",
         "url": "https://github.com/jesuisfol/adminer_ynh"
     },
-    "multi_instance": "false",
+    "multi_instance": "true",
     "arguments": {
         "install" : [
             {
