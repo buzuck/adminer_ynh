@@ -3,6 +3,7 @@
 # Retrieve arguments
 domain=$1
 path=$2
+admin=$3
 
 app_name="adminer"
 
@@ -12,10 +13,21 @@ if [[ ! $? -eq 0 ]]; then
     exit 1
 fi
 
+# Check that admin user is an existing account
+sudo yunohost user list --json | grep -q "\"username\": \"$admin\""
+if [[ ! $? -eq 0 ]]; then
+    echo "Error : the chosen admin user does not exist"
+    exit 1
+fi
+
 # Copy files to the right place
 final_path=/var/www/$app_name
 sudo mkdir -p $final_path
 sudo cp -r ../sources/* $final_path
+
+# Configuration
+sudo yunohost add addaccess adminer -u $admin
+sudo yunohost add setting adminer admin -v $admin
 
 # Files owned by root, www-data can just read
 sudo find $final_path -type f | xargs sudo chmod 644

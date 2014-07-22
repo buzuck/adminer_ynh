@@ -29,6 +29,14 @@
                 },
                 "example": "/adminer",
                 "default": "/adminer"
+            },
+            {
+                "name": "admin",
+                "ask": {
+                    "en": "Choose the only allowed admin user",
+                    "fr": "Choisissez l'unique utilisateur autorisé"
+                },
+                "example": "johndoe"
             }
         ]
     }

@@ -23,6 +23,10 @@ sudo find $final_path -type f | xargs sudo chmod 644
 sudo find $final_path -type d | xargs sudo chmod 755
 sudo chown -R root: $final_path
 
+# Configuration
+sudo yunohost app addaccess phpmyadmin -u $admin
+sudo yunohost app setting phpmyadmin admin -v $admin
+
 # Modify Nginx configuration file and copy it to Nginx conf directory
 sed -i "s@YNH_WWW_PATH@$path@g" ../conf/nginx.conf
 sed -i "s@YNH_WWW_ALIAS@$final_path/@g" ../conf/nginx.conf
