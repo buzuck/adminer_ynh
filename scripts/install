@@ -43,4 +43,5 @@ sudo chown root: $nginxconf
 sudo chmod 600 $nginxconf
 
 sudo service nginx reload
+sudo service php5-fpm reload
 sudo yunohost app ssowatconf
