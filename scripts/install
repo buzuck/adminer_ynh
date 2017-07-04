@@ -9,12 +9,14 @@ app=$YNH_APP_INSTANCE_NAME
 domain=$YNH_APP_ARG_DOMAIN
 path_url=$YNH_APP_ARG_PATH
 is_public=$YNH_APP_ARG_IS_PUBLIC
+root_access=$YNH_APP_ARG_ROOT_ACCESS
 
 # Source YunoHost helpers
 source /usr/share/yunohost/helpers
 
 # Save app settings
 ynh_app_setting_set "$app" is_public "$is_public"
+ynh_app_setting_set "$app" root_access "$root_access"
 
 # Check domain/path availability
 sudo yunohost app checkurl "${domain}${path_url}" -a "$app" \
@@ -24,8 +26,13 @@ sudo yunohost app checkurl "${domain}${path_url}" -a "$app" \
 # Copy source files
 src_path=/var/www/$app
 sudo mkdir -p $src_path
-sudo cp -a ../sources/. $src_path
-
+if [[ $root_access -eq 1 ]]; then
+#copy files from with_root_access folder to the src_path
+  sudo cp -a ../sources/with_root_access/. $src_path
+else
+#copy files from root_access_disabled folder to the src_path
+  sudo cp -a ../sources/root_access_disabled/. $src_path
+fi
 
 # Set permissions to app files
 # you may need to make some file and/or directory writeable by www-data (nginx user)
