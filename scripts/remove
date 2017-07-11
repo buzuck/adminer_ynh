@@ -1,10 +1,20 @@
 #!/bin/bash
 
-app_name="adminer"
-domain=$(sudo yunohost app setting $app_name domain)
+# See comments in install script
+app=$YNH_APP_INSTANCE_NAME
 
-sudo rm -rf /var/www/$app_name
-sudo rm -f /etc/nginx/conf.d/$domain.d/$app_name.conf
+# Source YunoHost helpers
+source /usr/share/yunohost/helpers
 
+# Retrieve app settings
+domain=$(sudo yunohost app setting "$app" domain)
+
+# Remove sources
+sudo rm -rf /var/www/$app
+
+# Remove nginx configuration file
+sudo rm -f /etc/nginx/conf.d/$domain.d/$app.conf
+
+# Reload nginx service
 sudo service php5-fpm restart
 sudo service nginx reload
