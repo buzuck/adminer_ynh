@@ -6,6 +6,7 @@ source /usr/share/yunohost/helpers
 # Import common cmd
 source ./_common.sh
 
+app=$YNH_APP_INSTANCE_NAME
 # Retrive arguments
 old_domain=$YNH_APP_OLD_DOMAIN
 old_path=$(ynh_normalize_url_path $YNH_APP_OLD_PATH)
