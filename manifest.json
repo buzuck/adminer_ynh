@@ -16,6 +16,7 @@
         "yunohost": ">> 2.4.0"
     },
     "multi_instance": "true",
+    "change_url": "true",
     "services": [
         "nginx",
         "php5-fpm",
