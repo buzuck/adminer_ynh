@@ -1,9 +1,10 @@
 
-<h1>Adminer for Yunohost</h1>
-<p>Version 4.6.2 <br>
+# Adminer for Yunohost
+Shipped Version: **4.6.3**
+
 Adminer (formerly phpMinAdmin better alternate to phpmyadmin) is a full-featured database management tool written in PHP.<br>
 http://www.adminer.org</p><br>
-<strong>You need to know the root password or the app username and password to login. Root password is in /etc/yunohost/mysql and the apps username and password are in setting.yml under /etc/yunohost/apps/appname.</strong><br>
+<strong>You need to know the root password from here /etc/yunohost/mysql or the app username and password from setting.yml under /etc/yunohost/apps/appname to login.</strong><br>
 For themes download the adminer.css from the main website and put the file in the app folder.<br>
 If you have problems with drivers see here: https://www.adminer.org/en/drivers.<br>
 
@@ -16,4 +17,5 @@ If you have problems with drivers see here: https://www.adminer.org/en/drivers.<
 - [X] Installation and remove script.
 - [X] Upgrade script
 - [X] Backup and restore script.
+- [ ] Check hash for source
 - [ ] Option to add admin user access if the app is not piblic. 
