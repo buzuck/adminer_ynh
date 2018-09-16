@@ -58,15 +58,15 @@ ynh_app_setting_set "$app" root_access "$root_access"
 
 
 # Copy source files
-src_path=/var/www/$app
-sudo mkdir -p $src_path
+
+sudo mkdir -p $final_path
 
 if [[ $root_access -eq 1 ]]; then
-#copy files from with_root_access folder to the src_path
-  sudo cp -a ../sources/with_root_access/. $src_path
+#copy files from with_root_access folder to the final_path
+  sudo cp -a ../sources/with_root_access/. $final_path
 else
-#copy files from root_access_disabled folder to the src_path
-  sudo cp -a ../sources/root_access_disabled/. $src_path
+#copy files from root_access_disabled folder to the final_path
+  sudo cp -a ../sources/root_access_disabled/. $final_path
 fi
 
 #=================================================
@@ -78,10 +78,10 @@ ynh_system_user_create $app
 
 
 # Set permissions to app files
-# you may need to make some file and/or directory writeable by www-data (nginx user)
-sudo find $src_path -type f | xargs sudo chmod 644
-sudo find $src_path -type d | xargs sudo chmod 755
-sudo chown -R $app: $src_path
+# Make some file and/or directory writeable by app user (nginx user)
+sudo find $final_path -type f | xargs sudo chmod 644
+sudo find $final_path -type d | xargs sudo chmod 755
+sudo chown -R $app: $final_path
 
 #=================================================
 # NGINX CONFIGURATION
@@ -89,12 +89,6 @@ sudo chown -R $app: $src_path
 
 # Create a dedicated nginx config
 ynh_add_nginx_config
-if [ "$path_url" != "/" ]
-then
-	ynh_replace_string "^#sub_path_only" "" "/etc/nginx/conf.d/$domain.d/$app.conf"
-fi
-ynh_store_file_checksum "/etc/nginx/conf.d/$domain.d/$app.conf"
-
 
 #=================================================
 # PHP-FPM CONFIGURATION
@@ -102,7 +96,6 @@ ynh_store_file_checksum "/etc/nginx/conf.d/$domain.d/$app.conf"
 
 # Create a dedicated php-fpm config
 ynh_add_fpm_config
-
 
 #=================================================
 # SETUP SSOWAT

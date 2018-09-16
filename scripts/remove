@@ -19,7 +19,7 @@ domain=$(ynh_app_setting_get $app domain)
 final_path=$(ynh_app_setting_get $app final_path)
 
 # Remove sources
-sudo rm -rf /var/www/$app
+ynh_secure_remove $final_path
 
 #=================================================
 # REMOVE NGINX CONFIGURATION

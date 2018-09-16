@@ -18,6 +18,7 @@ app=$YNH_APP_INSTANCE_NAME
 # Retrieve app settings
 domain=$(ynh_app_setting_get "$app" domain)
 path_url=$(ynh_app_setting_get "$app" path)
+final_path=$(ynh_app_setting_get $app final_path)
 is_public=$(ynh_app_setting_get "$app" is_public)
 root_access=$(ynh_app_setting_get "$app" root_access)
 
@@ -40,6 +41,18 @@ if [ -z $final_path ]; then
 	ynh_app_setting_set $app final_path $final_path
 fi
 
+#=================================================
+# BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
+#=================================================
+
+# Backup the current version of the app
+ynh_backup_before_upgrade
+ynh_clean_setup () {
+	# restore it if the upgrade fails
+	ynh_restore_upgradebackup
+}
+# Exit if an error occurs during the execution of the script
+ynh_abort_if_errors
 
 #=================================================
 # CHECK THE PATH
@@ -56,31 +69,24 @@ path_url=$(ynh_normalize_url_path $path_url)
 ynh_system_user_create $app
 
 # Copy source files
-src_path=/var/www/$app
-sudo rm -rf $src_path
-sudo mkdir -p $src_path
+sudo rm -rf $final_path
+sudo mkdir -p $final_path
 if [[ $root_access -eq 1 ]]; then
-#copy files from with_root_access folder to the src_path
-  sudo cp -a ../sources/with_root_access/. $src_path
+#copy files from with_root_access folder to the final_path
+  sudo cp -a ../sources/with_root_access/. $final_path
 else
-#copy files from root_access_disabled folder to the src_path
-  sudo cp -a ../sources/root_access_disabled/. $src_path
+#copy files from root_access_disabled folder to the final_path
+  sudo cp -a ../sources/root_access_disabled/. $final_path
 fi
 
 # Files owned by root, www-data can just read
-sudo find $src_path -type f | xargs sudo chmod 644
-sudo find $src_path -type d | xargs sudo chmod 755
-sudo chown -R $app: $src_path
+sudo find $final_path -type f | xargs sudo chmod 644
+sudo find $final_path -type d | xargs sudo chmod 755
+sudo chown -R $app: $final_path
 
 
 # Create a dedicated nginx config
 ynh_add_nginx_config
-if [ "$path_url" != "/" ]
-then
-	ynh_replace_string "^#sub_path_only" "" "/etc/nginx/conf.d/$domain.d/$app.conf"
-fi
-ynh_store_file_checksum "/etc/nginx/conf.d/$domain.d/$app.conf"
-
 
 #=================================================
 # PHP-FPM CONFIGURATION
