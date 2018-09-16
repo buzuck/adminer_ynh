@@ -58,7 +58,7 @@ ynh_app_setting_set "$app" root_access "$root_access"
 
 
 # Copy source files
-
+ynh_app_setting_set $app final_path $final_path
 sudo mkdir -p $final_path
 
 if [[ $root_access -eq 1 ]]; then
