@@ -4,7 +4,7 @@
 
 [![Install Adminer with YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=adminer)
 <br>
-Shipped Version: **4.7.0**
+Shipped Version: **4.7.1**
 
 Adminer (formerly phpMinAdmin better alternate to phpmyadmin) is a full-featured database management tool written in PHP.<br>
 http://www.adminer.org</p><br>

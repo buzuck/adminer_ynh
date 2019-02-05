@@ -6,7 +6,7 @@
         "en": "Database management in a single PHP file",
         "fr": "Gestionnaire de base de données en un seul fichier PHP"
     },
-    "version": "4.7.0",
+    "version": "4.7.1",
     "url": "https://www.adminer.org/",
     "license": "free",
     "maintainer": {
