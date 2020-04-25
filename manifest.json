@@ -6,7 +6,7 @@
         "en": "Database management in a single PHP file",
         "fr": "Gestionnaire de base de données en un seul fichier PHP"
     },
-    "version": "4.7.1",
+    "version": "4.7.6~ynh1",
     "url": "https://www.adminer.org/",
     "license": "free",
     "maintainer": {
@@ -20,12 +20,12 @@
        "url": "https://github.com/jesuisfol/adminer_ynh"
         },
     "requirements": {
-        "yunohost": ">= 2.7.2"
+        "yunohost": ">= 3.5"
     },
     "multi_instance": "true",
     "services": [
         "nginx",
-        "php5-fpm"
+        "php7.0-fpm"
     ],
     "arguments": {
         "install" : [
