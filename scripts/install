@@ -95,7 +95,13 @@ else
 cp -a ../sources/root_access_disabled/. $final_path
 fi
 
+#=================================================
+# CREATE DEDICATED USER
+#=================================================
+ynh_script_progression --message="Configuring system user..." --time --weight=1
 
+# Create a system user
+ynh_system_user_create --username=$app
 
 
 # Set permissions to app files
@@ -114,13 +120,6 @@ ynh_script_progression --message="Configuring nginx web server..." --time --weig
 # Create a dedicated nginx config
 ynh_add_nginx_config
 
-#=================================================
-# CREATE DEDICATED USER
-#=================================================
-ynh_script_progression --message="Configuring system user..." --time --weight=1
-
-# Create a system user
-ynh_system_user_create --username=$app
 
 #=================================================
 # PHP-FPM CONFIGURATION
