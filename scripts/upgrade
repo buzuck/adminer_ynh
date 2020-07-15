@@ -21,6 +21,7 @@ path_url=$(ynh_app_setting_get  --app=$app --key=path)
 final_path=$(ynh_app_setting_get  --app=$app --key=final_path)
 is_public=$(ynh_app_setting_get  --app=$app --key=is_public)
 root_access=$(ynh_app_setting_get  --app=$app --key=root_access)
+phpversion=$(ynh_app_setting_get --app="$app" --key=phpversion)
 
 #=================================================
 # ENSURE DOWNWARD COMPATIBILITY
@@ -101,19 +102,7 @@ ynh_add_nginx_config
 ynh_script_progression --message="Upgrading php-fpm configuration..." --time --weight=1
 
 # Create a dedicated php-fpm config
-ynh_add_fpm_config
-
-#=================================================
-# SETUP SSOWAT
-#=================================================
-ynh_script_progression --message="Upgrading SSOwat configuration..." --time --weight=1
-
-# Make app public if necessary
-if [ $is_public -eq 1 ]
-then
-	# unprotected_uris allows SSO credentials to be passed anyway
-	ynh_app_setting_set --app=$app --key=unprotected_uris --value="/"
-fi
+ynh_add_fpm_config --package="$extra_php_dependencies"
 
 #=================================================
 # RELOAD NGINX
