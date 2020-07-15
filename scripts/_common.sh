@@ -5,7 +5,7 @@
 #=================================================
 
 # dependencies used by the app
-pkg_dependencies="php-mysql php-sqlite3 php-pgsql"
+pkg_dependencies="php7.0-mysql php7.0-sqlite3 php7.0-pgsql"
 
 #=================================================
 # PERSONAL HELPERS

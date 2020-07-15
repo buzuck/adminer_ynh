@@ -12,11 +12,10 @@ source /usr/share/yunohost/helpers
 #=================================================
 # LOAD SETTINGS
 #=================================================
-ynh_script_progression --message="Loading installation settings..." --time --weight=1
+ynh_script_progression --message="Loading installation settings..." --weight=1
 
 app=$YNH_APP_INSTANCE_NAME
 
-# Retrieve app settings
 domain=$(ynh_app_setting_get  --app=$app --key=domain)
 path_url=$(ynh_app_setting_get  --app=$app --key=path)
 final_path=$(ynh_app_setting_get  --app=$app --key=final_path)
@@ -26,7 +25,7 @@ root_access=$(ynh_app_setting_get  --app=$app --key=root_access)
 #=================================================
 # ENSURE DOWNWARD COMPATIBILITY
 #=================================================
-ynh_script_progression --message="Ensuring downward compatibility..." --time --weight=1
+ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
 
 # Fix is_public as a boolean value
 if [ "$is_public" = "Yes" ]; then
@@ -60,26 +59,38 @@ ynh_abort_if_errors
 #=================================================
 # CREATE DEDICATED USER
 #=================================================
+ynh_script_progression --message="Making sure dedicated system user exists..." --time --weight=1
 
-# Create a system user
-ynh_system_user_create $app
+# Create a dedicated user (if not existing)
+ynh_system_user_create --username=$app
+
+
 
 # Copy source files
-rm -rf $final_path
+ynh_secure_remove $final_path
+
 mkdir -p $final_path
+
 if [[ $root_access -eq 1 ]]; then
-#copy files from with_root_access folder to the final_path
-cp -a ../sources/with_root_access/. $final_path
+	#copy files from with_root_access folder to the final_path
+	cp -a ../sources/with_root_access/. $final_path
 else
-#copy files from root_access_disabled folder to the final_path
-cp -a ../sources/root_access_disabled/. $final_path
+	#copy files from root_access_disabled folder to the final_path
+	cp -a ../sources/root_access_disabled/. $final_path
 fi
 
-# Files owned by root, www-data can just read
-find $final_path -type f | xargs sudo chmod 644
-find $final_path -type d | xargs sudo chmod 755
-chown -R $app: $final_path
+#=================================================
+# SECURE FILES AND DIRECTORIES
+#=================================================
 
+# Set permissions to app files
+chmod 755 -R $final_path/adminer.php
+chown -R www-data:www-data $final_path
+
+#=================================================
+# NGINX CONFIGURATION
+#=================================================
+ynh_script_progression --message="Upgrading nginx web server configuration..." --time --weight=1
 
 # Create a dedicated nginx config
 ynh_add_nginx_config
