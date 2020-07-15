@@ -5,9 +5,7 @@
 #=================================================
 
 # dependencies used by the app
-extra_php_dependencies="php${YNH_PHP_VERSION}-mysql php${YNH_PHP_VERSION}-sqlite3 php${YNH_PHP_VERSION}-pgsql"
-
-YNH_PHP_VERSION="7.3"
+pkg_dependencies="php7.0-mysql php7.0-sqlite3 php7.0-pgsql"
 
 #=================================================
 # PERSONAL HELPERS
