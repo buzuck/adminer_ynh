@@ -6,8 +6,8 @@
 	; Manifest
 		domain="domain.tld"	(DOMAIN)
 		path="/path"	(PATH)
-		root_access=1
         is_public=1	(PUBLIC|public=1|private=0)
+
 	; Checks
 		pkg_linter=1
 		setup_sub_dir=1
@@ -18,7 +18,7 @@
 		upgrade=1
 		backup_restore=1
 		multi_instance=1
-		port_already_use=0	(66)
+		port_already_use=0
 		change_url=1
 ;;;; Levels
 	# If the level 5 (Package linter) is forced to 1. Please add justifications here.
