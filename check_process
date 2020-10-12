@@ -2,6 +2,7 @@
 # https://github.com/YunoHost/package_check#syntax-check_process-file
 
 # Move this file from check_process.default to check_process when you have filled it.
+
 ;; Test complet
 	; Manifest
 		domain="domain.tld"	(DOMAIN)
@@ -12,7 +13,7 @@
 		pkg_linter=1
 		setup_sub_dir=1
 		setup_root=1
-		setup_nourl=1
+		setup_nourl=0
 		setup_private=1
 		setup_public=1
 		upgrade=1
