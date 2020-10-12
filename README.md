@@ -1,4 +1,4 @@
-# Adminer for Yunohost
+# Adminer for YunoHost
 
 [![Integration level](https://dash.yunohost.org/integration/adminer.svg)](https://dash.yunohost.org/appci/app/adminer) ![](https://ci-apps.yunohost.org/ci/badges/adminer.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/adminer.maintain.svg)  
 [![Install Adminer with YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=adminer)
@@ -9,7 +9,7 @@
 If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/install) to learn how to install it.*
 
 ## Overview
-Adminer (formerly phpMinAdmin better alternate to phpmyadmin) is a full-featured database management tool written in PHP. Replace phpMyAdmin with Adminer and you will get a tidier user interface, better support for MySQL features, higher performance and more security. [See detailed comparison](https://www.adminer.org/en/phpmyadmin).
+Adminer (formerly phpMinAdmin better alternate to phpMyAdmin) is a full-featured database management tool (MySQL, MariaDB, PostgreSQL, SQLite, MS SQL, Oracle, SimpleDB, Elasticsearch, MongoDB). Replace phpMyAdmin with Adminer and you will get a tidier user interface, better support for MySQL features, higher performance and more security. [See detailed comparison](https://www.adminer.org/en/phpmyadmin).
 
 **Shipped version:** 4.7.7
 
@@ -36,8 +36,8 @@ If you have problems with drivers see here: https://www.adminer.org/en/drivers.
 
 #### Multi-user support
 
- * Are LDAP and HTTP auth supported?
- * Can the app be used by multiple users?
+ * Are LDAP and HTTP auth supported? **No**
+ * Can the app be used by multiple users? **Yes**
 
 #### Supported architectures
 
