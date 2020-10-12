@@ -22,7 +22,7 @@ final_path=$(ynh_app_setting_get --app=$app --key=final_path)
 #=================================================
 # REMOVE APP MAIN DIR
 #=================================================
-ynh_script_progression --message="Removing app main directory..." --weight=3
+ynh_script_progression --message="Removing Adminer main directory..." --weight=3
 
 # Remove the app directory securely
 ynh_secure_remove --file="$final_path"
@@ -38,7 +38,7 @@ ynh_remove_nginx_config
 #=================================================
 # REMOVE PHP-FPM CONFIGURATION
 #=================================================
-ynh_script_progression --message="Removing PHP-fpm configuration..." --weight=1
+ynh_script_progression --message="Removing PHP-FPM configuration..." --weight=1
 
 # Remove the dedicated php-fpm config
 ynh_remove_fpm_config
@@ -57,4 +57,4 @@ ynh_system_user_delete --username=$app
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Removal of $app completed" --last
+ynh_script_progression --message="Removal of Adminer completed" --last

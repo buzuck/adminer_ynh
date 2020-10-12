@@ -9,18 +9,9 @@
 If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/install) to learn how to install it.*
 
 ## Overview
-Replace phpMyAdmin with Adminer and you will get a tidier user interface, better support for MySQL features, higher performance and more security. See detailed comparison https://www.adminer.org/en/phpmyadmin/.
-Adminer development priorities are: 1. Security, 2. User experience, 3. Performance, 4. Feature set, 5. Size.
+Adminer (formerly phpMinAdmin better alternate to phpmyadmin) is a full-featured database management tool written in PHP. Replace phpMyAdmin with Adminer and you will get a tidier user interface, better support for MySQL features, higher performance and more security. [See detailed comparison](https://www.adminer.org/en/phpmyadmin).
 
-Adminer (formerly phpMinAdmin better alternate to phpmyadmin) is a full-featured database management tool written in PHP.
-
-You need to know the root password from here /etc/yunohost/mysql or the app username and password from setting.yml under /etc/yunohost/apps/appname to login.
-For themes download the adminer.css from the main website and put the file in the app folder.
-If you have problems with drivers see here: https://www.adminer.org/en/drivers.
-
-
-
-**Shipped version:** 4.7.6
+**Shipped version:** 4.7.7
 
 ## Screenshots
 
@@ -32,7 +23,9 @@ If you have problems with drivers see here: https://www.adminer.org/en/drivers.
 
 ## Configuration
 
-How to configure this app: From an admin panel, a plain file with SSH, or any other way.
+You need to know the root password from here /etc/yunohost/mysql or the app username and password from `setting.yml` under `/etc/yunohost/apps/appname` to login.
+For themes download the adminer.css from the main website and put the file in the app folder.
+If you have problems with drivers see here: https://www.adminer.org/en/drivers.
 
 ## Documentation
 
