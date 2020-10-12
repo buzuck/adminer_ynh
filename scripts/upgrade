@@ -12,21 +12,21 @@ source /usr/share/yunohost/helpers
 #=================================================
 # LOAD SETTINGS
 #=================================================
-ynh_script_progression --message="Loading installation settings..." --time --weight=1
+ynh_script_progression --message="Loading installation settings..." --weight=1
 
 app=$YNH_APP_INSTANCE_NAME
 
-# Retrieve app settings
 domain=$(ynh_app_setting_get  --app=$app --key=domain)
 path_url=$(ynh_app_setting_get  --app=$app --key=path)
 final_path=$(ynh_app_setting_get  --app=$app --key=final_path)
 is_public=$(ynh_app_setting_get  --app=$app --key=is_public)
 root_access=$(ynh_app_setting_get  --app=$app --key=root_access)
+phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
 
 #=================================================
 # ENSURE DOWNWARD COMPATIBILITY
 #=================================================
-ynh_script_progression --message="Ensuring downward compatibility..." --time --weight=1
+ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
 
 # Fix is_public as a boolean value
 if [ "$is_public" = "Yes" ]; then
@@ -46,7 +46,7 @@ fi
 #=================================================
 # BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
 #=================================================
-ynh_script_progression --message="Backing up the app before upgrading (may take a while)..." --time --weight=1
+ynh_script_progression --message="Backing up Adminer before upgrading (may take a while)..." --weight=3
 
 # Backup the current version of the app
 ynh_backup_before_upgrade
@@ -60,26 +60,30 @@ ynh_abort_if_errors
 #=================================================
 # CREATE DEDICATED USER
 #=================================================
+ynh_script_progression --message="Making sure dedicated system user exists..." --weight=1
 
-# Create a system user
-ynh_system_user_create $app
+# Create a dedicated user (if not existing)
+ynh_system_user_create --username=$app
 
 # Copy source files
-rm -rf $final_path
+ynh_secure_remove $final_path
+
 mkdir -p $final_path
-if [[ $root_access -eq 1 ]]; then
-#copy files from with_root_access folder to the final_path
-cp -a ../sources/with_root_access/. $final_path
-else
-#copy files from root_access_disabled folder to the final_path
+
 cp -a ../sources/root_access_disabled/. $final_path
-fi
 
-# Files owned by root, www-data can just read
-find $final_path -type f | xargs sudo chmod 644
-find $final_path -type d | xargs sudo chmod 755
-chown -R $app: $final_path
+#=================================================
+# SECURE FILES AND DIRECTORIES
+#=================================================
 
+# Set permissions to app files
+chmod 755 -R $final_path/adminer.php
+chown -R www-data:www-data $final_path
+
+#=================================================
+# NGINX CONFIGURATION
+#=================================================
+ynh_script_progression --message="Upgrading NGINX web server configuration..." --weight=1
 
 # Create a dedicated nginx config
 ynh_add_nginx_config
@@ -87,27 +91,15 @@ ynh_add_nginx_config
 #=================================================
 # PHP-FPM CONFIGURATION
 #=================================================
-ynh_script_progression --message="Upgrading php-fpm configuration..." --time --weight=1
+ynh_script_progression --message="Upgrading PHP-FPM configuration..." --weight=1
 
 # Create a dedicated php-fpm config
-ynh_add_fpm_config
-
-#=================================================
-# SETUP SSOWAT
-#=================================================
-ynh_script_progression --message="Upgrading SSOwat configuration..." --time --weight=1
-
-# Make app public if necessary
-if [ $is_public -eq 1 ]
-then
-	# unprotected_uris allows SSO credentials to be passed anyway
-	ynh_app_setting_set --app=$app --key=unprotected_uris --value="/"
-fi
+ynh_add_fpm_config --phpversion=$YNH_PHP_VERSION --package="$extra_php_dependencies"
 
 #=================================================
 # RELOAD NGINX
 #=================================================
-ynh_script_progression --message="Reloading nginx web server..." --time --weight=1
+ynh_script_progression --message="Reloading NGINX web server..." --weight=1
 
 ynh_systemd_action --service_name=nginx --action=reload
 
@@ -115,4 +107,4 @@ ynh_systemd_action --service_name=nginx --action=reload
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Upgrade of $app completed" --time --last
+ynh_script_progression --message="Upgrade of Adminer completed" --last
