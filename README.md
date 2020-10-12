@@ -1,11 +1,11 @@
 # Adminer for Yunohost
 
 [![Integration level](https://dash.yunohost.org/integration/adminer.svg)](https://dash.yunohost.org/appci/app/adminer) ![](https://ci-apps.yunohost.org/ci/badges/adminer.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/adminer.maintain.svg)  
-[![Install adminer with YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=adminer)
+[![Install Adminer with YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=adminer)
 
 *[Lire ce readme en français.](./README_fr.md)*
 
-> *This package allows you to install adminer quickly and simply on a YunoHost server.  
+> *This package allows you to install Adminer quickly and simply on a YunoHost server.  
 If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/install) to learn how to install it.*
 
 ## Overview
@@ -23,7 +23,7 @@ Adminer (formerly phpMinAdmin better alternate to phpmyadmin) is a full-featured
 
 ## Configuration
 
-You need to know the root password from here /etc/yunohost/mysql or the app username and password from `setting.yml` under `/etc/yunohost/apps/appname` to login.
+You need to know the root password from here `/etc/yunohost/mysql` or the app username and password from `setting.yml` under `/etc/yunohost/apps/appname` to login.
 For themes download the adminer.css from the main website and put the file in the app folder.
 If you have problems with drivers see here: https://www.adminer.org/en/drivers.
 
