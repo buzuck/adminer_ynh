@@ -24,13 +24,9 @@ Adminer (formerly phpMinAdmin better alternate to phpMyAdmin) is a full-featured
 ## Configuration
 
 You need to know the root password from here `/etc/yunohost/mysql` or the app username and password from `setting.yml` under `/etc/yunohost/apps/appname` to login.
-For themes download the adminer.css from the main website and put the file in the app folder.
+For themes download the adminer.css from the main website and replace the file in the app folder.
 If you have problems with drivers see here: https://www.adminer.org/en/drivers.
 
-## Documentation
-
- * Official documentation: Link to the official documentation of this app
- * YunoHost documentation: If specific documentation is needed, feel free to contribute.
 
 ## YunoHost specific features
 
@@ -44,13 +40,6 @@ If you have problems with drivers see here: https://www.adminer.org/en/drivers.
 * x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/adminer_%20%28Apps%29.svg)](https://ci-apps.yunohost.org/ci/apps/adminer/)
 * ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/adminer_%20%28Apps%29.svg)](https://ci-apps-arm.yunohost.org/ci/apps/adminer/)
 
-## Limitations
-
-* Any known limitations.
-
-## Additional information
-
-* Other info you would like to add about this app.
 
 ## Links
 
